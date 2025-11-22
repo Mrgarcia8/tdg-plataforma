@@ -92,8 +92,26 @@ export default function Dashboard() {
           fontSize: "1rem"
        }}
 >
-  Ver Insignias
-</button>
+       Ver Insignias
+      </button>
+
+      <button
+        onClick={() => window.location.href = "/perfil"}
+        style={{
+          marginTop: "1rem",
+          padding: "1rem",
+          width: "100%",
+          background: "#673AB7",
+          color: "white",
+          border: "none",
+          borderRadius: "10px",
+          cursor: "pointer",
+          fontSize: "1rem"
+        }}
+>
+         Ver Perfil
+       </button>
+
 
 
       <h2>Módulos de Aprendizaje</h2>
