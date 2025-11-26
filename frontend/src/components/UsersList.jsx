@@ -1,79 +1,71 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import "./styles/duo.css"; // DISEÑO GLOBAL
 
-const UserList = ({ onEdit }) => {
+export default function UsersList({ onEdit }) {
   const [users, setUsers] = useState([]);
 
-  // Cargar usuarios desde el backend
-  const loadUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:4000/api/users");
-      setUsers(res.data);
-    } catch (error) {
-      console.error("Error cargando usuarios:", error);
-    }
-  };
-
-  // CORRECCIÓN: evitar warning por setState dentro de useEffect
+  // Cargar usuarios
   useEffect(() => {
-    const fetchData = async () => {
-      await loadUsers();
-    };
-    fetchData();
+    async function fetchUsers() {
+      try {
+        const res = await axios.get("http://localhost:4000/api/users");
+        if (Array.isArray(res.data.data)) {
+          setUsers(res.data.data);
+        } else {
+          console.error("La API no devolvió un array:", res.data);
+          setUsers([]);
+        }
+      } catch (err) {
+        console.error("Error cargando usuarios:", err);
+      }
+    }
+    fetchUsers();
   }, []);
 
   const deleteUser = async (id) => {
     if (!window.confirm("¿Seguro que deseas eliminar este usuario?")) return;
-
-    try {
-      await axios.delete(`http://localhost:4000/api/users/${id}`);
-      loadUsers(); // recargar lista
-    } catch (error) {
-      console.error("Error eliminando usuario:", error);
-    }
+    await axios.delete(`http://localhost:4000/api/users/${id}`);
+    setUsers(users.filter((u) => u._id !== id));
   };
 
   return (
-    <div className="p-4 bg-white rounded-xl shadow-md border border-gray-200">
-      <h2 className="text-xl font-semibold text-blue-800 mb-4">
-        Lista de Usuarios
-      </h2>
+    <div className="duo-container">
+      <h1 className="duo-title">👩‍🏫 Gestión de Estudiantes</h1>
+      <p className="duo-sub">Registra, edita y administra estudiantes fácilmente</p>
 
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="bg-blue-100 text-blue-900">
-            <th className="border p-2">Nombre</th>
-            <th className="border p-2">Correo</th>
-            <th className="border p-2">Acciones</th>
-          </tr>
-        </thead>
+      {/* LISTA */}
+      {users.map((user) => (
+        <div key={user._id} className="duo-card">
+          <h3 style={{ fontSize: "22px", marginBottom: "8px", color: "#1C3D63" }}>
+            👦 {user.nombre}
+          </h3>
+          <p style={{ marginBottom: "10px", color: "#6f6f6f" }}>{user.email}</p>
 
-        <tbody>
-          {users.map((u) => (
-            <tr key={u._id} className="hover:bg-blue-50 transition">
-              <td className="border p-2">{u.nombre}</td>
-              <td className="border p-2">{u.email}</td>
-              <td className="border p-2 flex gap-2 justify-center">
-                <button
-                  onClick={() => onEdit(u)}
-                  className="px-3 py-1 bg-yellow-400 text-black rounded-lg shadow hover:bg-yellow-300"
-                >
-                  Editar
-                </button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              className="duo-btn"
+              onClick={() => onEdit(user)}
+            >
+              ✏️ Editar
+            </button>
 
-                <button
-                  onClick={() => deleteUser(u._id)}
-                  className="px-3 py-1 bg-red-500 text-white rounded-lg shadow hover:bg-red-400"
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <button
+              className="duo-btn duo-btn-red"
+              onClick={() => deleteUser(user._id)}
+            >
+              🗑️ Eliminar
+            </button>
+          </div>
+        </div>
+      ))}
+
+      {users.length === 0 && (
+        <div className="duo-card">
+          <h3 style={{ color: "#1C3D63" }}>Aún no hay estudiantes registrados</h3>
+          <p style={{ color: "#6f6f6f" }}>Agrega uno desde el formulario superior.</p>
+        </div>
+      )}
     </div>
   );
-};
-
-export default UserList;
+}

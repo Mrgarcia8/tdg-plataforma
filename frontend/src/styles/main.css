@@ -1,20 +1,149 @@
-:root{
-  --bg:#f6fbff;
-  --card:#ffffff;
-  --primary:#0b84ff; /* azul activo */
-  --accent:#ffd580; /* cálido para recompensas */
-  --muted:#64748b;
-  --success:#10b981;
-  --danger:#ef4444;
-  font-family: Inter, Arial, sans-serif;
+/* Paleta amigable para TDAH (suave, contrastada, sin saturación excesiva) */
+:root {
+  --blue-soft: #6aa9ff;
+  --blue-strong: #2d6cdf;
+  --yellow-focus: #ffe066;
+  --green-ok: #71d981;
+  --red-alert: #ff6b6b;
+  --bg-soft: #f6f9fc;
+  --text-dark: #1a1a1a;
 }
 
-body{background:var(--bg); color:#0f172a; margin:0; padding:0}
-.container{max-width:980px;margin:24px auto;padding:16px}
-.card{background:var(--card); border-radius:12px; box-shadow:0 6px 18px rgba(2,6,23,0.06); padding:18px}
-.header{display:flex;align-items:center;justify-content:space-between}
-.btn-primary{background:var(--primary); color:#fff; padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
-.focusbar{height:12px;background:#e6eefc;border-radius:8px;overflow:hidden}
-.focusbar .fill{height:100%; width:100%; background:linear-gradient(90deg,var(--primary),#7cc0ff)}
-.input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef2;margin-top:8px}
-.big{font-size:1.15rem}
+body {
+  background: var(--bg-soft);
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor general */
+.game-container {
+  padding: 30px;
+  text-align: center;
+}
+
+.titulo-mision {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--blue-strong);
+  margin-bottom: 25px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* GRID de tarjetas */
+.user-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Tarjeta estilo videojuego */
+.user-card {
+  background: white;
+  width: 260px;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.12);
+  transition: transform 0.25s ease, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.user-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 12px 20px rgba(0,0,0,0.18);
+}
+
+/* Avatar circular */
+.user-avatar {
+  width: 70px;
+  height: 70px;
+  background: var(--blue-soft);
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Nombre */
+.user-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 5px 0;
+}
+
+/* Email */
+.user-email {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+/* Botones */
+.user-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-level-up {
+  background: var(--green-ok);
+  padding: 8px 15px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-level-up:hover {
+  background: #4ec45a;
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background: var(--red-alert);
+  padding: 8px 15px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-danger:hover {
+  background: #e05858;
+  transform: scale(1.05);
+}
+
+.msg-empty {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.animated-card {
+  animation: floatUp 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

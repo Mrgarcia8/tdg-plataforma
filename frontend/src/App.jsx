@@ -1,20 +1,29 @@
-import UserForm from "./components/UserForm";
+// src/App.jsx
+import "./components/styles/duo.css"; // apunta a duo.css dentro de src/components/styles
+import Home from "./components/Home";
+import Missions from "./components/Missions";
 import UsersList from "./components/UsersList";
+import StudentProfile from "./components/StudentProfile";
+import Dashboard from "./components/Dashboard"; // opcional (se generará en fases)
+import { useState } from "react";
 
-function App() {
+export default function App() {
+  const [screen, setScreen] = useState("home");
+  const [userSummary] = useState({ name: "Alumno", xp: 120, streak: 3 }); // demo
+
+  const nav = (target) => setScreen(target);
+
   return (
-    <div style={{ margin: "40px" }}>
-      <h1>Gestión de Usuarios</h1>
+    <>
+      {screen === "home" && <Home onNavigate={nav} userSummary={userSummary} />}
 
-      <UserForm onUserCreated={() => window.location.reload()} />
-      <hr />
-      <UsersList />
-    </div>
+      {screen === "missions" && <Missions onBack={() => nav("home")} />}
+
+      {screen === "users" && <UsersList onEdit={(u) => console.log("Editar", u)} />}
+
+      {screen === "create" && <StudentProfile onCreated={() => nav("users")} />}
+
+      {screen === "dashboard" && <Dashboard onBack={() => nav("home")} />}
+    </>
   );
 }
-
-export default App;
-
-
-
-
