@@ -1,22 +1,32 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import modulesRoutes from "./routes/modulesRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
+dotenv.config();
 const app = express();
-const connectDB = require("./config/db");
-
-// MIDDLEWARE
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// RUTAS
-app.use("/modules", require("./routes/modules"));
-app.use("/auth", require("./routes/auth"));
+// rutas
+app.use("/api/auth", authRoutes);
+app.use("/api/modules", modulesRoutes);
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/users", userRoutes);
 
-// conexión a db deshabilitada para desarrollo sin Mongo
-// connectDB();
+const PORT = process.env.PORT || 4000;
 
-app.listen(4000, () => {
-  console.log("Server listening 4000");
-});
+(async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(PORT, ()=> console.log("Server listening", PORT));
+  } catch (err) {
+    console.error("Startup error:", err);
+    process.exit(1);
+  }
+})();
 

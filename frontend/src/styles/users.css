@@ -1,0 +1,131 @@
+/* ======== ESTILOS GENERALES TDAH + DUA ======== */
+
+body {
+  background-color: #F5F9FC;
+  font-family: "Segoe UI", sans-serif;
+  color: #2B2D42;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.user-container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #D6E0EB;
+}
+
+/* Títulos */
+h2, h3 {
+  color: #1D3557;
+  font-weight: 600;
+}
+
+/* ======== FORMULARIOS ======== */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #D6E0EB;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+input:focus {
+  border-color: #457B9D;
+}
+
+/* Botones */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+/* Botón azul calmado */
+.btn-primary {
+  background: #457B9D;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1D3557;
+}
+
+/* Botón eliminar – rojo suave */
+.btn-danger {
+  background: #DD6E6E;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #C65B5B;
+}
+
+/* Botón secundario */
+.btn-secondary {
+  background: #A8DADC;
+  color: #1D3557;
+}
+
+.btn-secondary:hover {
+  background: #88C0C4;
+}
+
+/* ======== LISTA DE USUARIOS ======== */
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #D6E0EB;
+  margin-bottom: 10px;
+}
+
+/* Botones dentro de cada item */
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ======== MODAL ======== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+  width: 350px;
+  max-width: 90%;
+}

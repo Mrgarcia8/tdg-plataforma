@@ -1,15 +1,20 @@
-import { useState } from "react";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import UserForm from "./components/UserForm";
+import UsersList from "./components/UsersList";
 
-export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+function App() {
+  return (
+    <div style={{ margin: "40px" }}>
+      <h1>Gestión de Usuarios</h1>
 
-  return loggedIn ? (
-    <Dashboard />
-  ) : (
-    <Login onLoginSuccess={() => setLoggedIn(true)} />
+      <UserForm onUserCreated={() => window.location.reload()} />
+      <hr />
+      <UsersList />
+    </div>
   );
 }
+
+export default App;
+
+
 
 

@@ -1,5 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-module.exports = () => {
-  console.log("Simulación DB (sin conexión real)");
-};
+export default async function connectDB(uri){
+  if(!uri) throw new Error("MONGO_URI not provided");
+  await mongoose.connect(uri);
+  console.log("✨ MongoDB conectado correctamente");
+}
+
+
+
+
+
+
+
+
+
+
+
+
